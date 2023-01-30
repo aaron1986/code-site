@@ -1,0 +1,161 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <meta property="og:title" content="">
+  <meta property="og:type" content="">
+  <meta property="og:url" content="">
+  <meta property="og:image" content="">
+
+  <link rel="manifest" href="site.webmanifest">
+  <link rel="apple-touch-icon" href="icon.png">
+  <!-- Place favicon.ico in the root directory -->
+
+  <link rel="stylesheet" href="css/normalize.css">
+  <link rel="stylesheet" href="css/main.css">
+
+  <meta name="theme-color" content="#fafafa">
+</head>
+
+<body>
+
+  <!-- Add your site or application content here -->
+  <div class="container-code-text">
+    <div class="text">
+      <div id="tt">connection.php</div>
+      <div class="code-text">
+        <?php
+      </br>
+      try {
+      </br>
+          $server = "localhost";
+        </br>
+          $username = "root";
+        </br>
+          $password = "";
+        </br>
+          $connection = new PDO("mysql:host=$server; dbname=database_name", $username, $password);
+        </br>
+          $connection -> setATTRIBUTE(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        </br>
+      } catch(Exception $e) {
+      </br>
+          echo "error!: " . $e -> getMessage();
+        </br>
+          die();
+        </br>
+      }
+    </br>
+    ?>
+      </div>
+ 
+    </div> <!-- div text -->
+    <div id="db">db.php</div>
+<div class="db-text">
+  <?php
+</br>
+  include('./connection.php');
+</br>
+</br>
+  if(isset($_POST['submit'])) {
+  </br>
+      $users_name = $_POST['name'];
+    </br>
+      $users_email= $_POST['email'];
+    </br>
+      $users_message = $_POST['message'];
+    </br>
+  </br>
+      header('./index.php');
+    </br>
+      $query = "INSERT INTO users (users_name, users_email, users_messsage) VALUES (:users_name, :users_email, :users_mesage)";
+    </br>
+      $query_run = $connection -> prepare($query);
+    </br>
+      $data = [':users_name' => $users_name, ':users_email' => $users_email, ':users_message' => $users_message];
+    </br>
+      $query_execute = $query_run -> execute($data);
+    </br>
+  }
+</div> <!-- db text -->
+
+
+<div class="ff">HTML Form</div>
+  <div class="form-text">
+    &lt; form class="form-horizontal" role="form" action="" method="POST" &gt;
+  </br>
+</br>
+    &lt; div class="form-group row">
+  </br>
+    &lt; label for="name" class="col-2 col-form-label">Name &lt;/label &gt;
+</br>
+    &lt; input type="text" class="form-control" type="text" id="name" name="name"placeholder="Enter your name..." &gt;
+  </br>
+    &lt; /div &gt;
+  </br>
+</br>
+    &lt;div class="form-group row" &gt;
+  </br>
+    &lt;label for="email" class="col-2 col-form-label">eMail &lt;/label &gt;
+  </br>
+    &lt;input type="email" class="form-control" type="text" id="email" name="email"placeholder="Enter your email..." &gt;
+  </br>
+    &lt; /div &gt;
+  </br>
+</br>
+&lt;div class="form-group row"&gt;
+</br>
+&lt;label for="message" class="col-2 col-form-label&gt;Message&lt;/label&gt;
+</br>
+&lt;textarea class="form-control" row="4" id="message" name="message"&gt;&lt;/textarea&gt;
+</br>
+&lt;/div&gt;
+</br>
+                    
+&lt; div class="form-group row"&gt;
+</br>
+&lt;button name="submit" class="btn btn-web"&gt;SendMesage&lt;/button&gt;
+</br>
+&lt;/div&gt;
+</br>
+&lt;/form&gt;
+</br>
+
+
+  </div>
+  </div> <!-- div container-->
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="js/vendor/modernizr-3.11.2.min.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/main.js"></script>
+
+  <!-- Google Analytics: change UA-XXXXX-Y to be your site's ID. -->
+  <script>
+    window.ga = function () { ga.q.push(arguments) }; ga.q = []; ga.l = +new Date;
+    ga('create', 'UA-XXXXX-Y', 'auto'); ga('set', 'anonymizeIp', true); ga('set', 'transport', 'beacon'); ga('send', 'pageview')
+  </script>
+  <script src="https://www.google-analytics.com/analytics.js" async></script>
+</body>
+
+</html>
